@@ -1,0 +1,32 @@
+{
+  "pages":[
+    "pages/books/books",
+    "pages/my/my",
+    "pages/mybooks/mybooks",
+    "pages/index/index",
+    "pages/logs/logs"
+  ],
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "Weixin",
+    "navigationBarTextStyle":"black"
+  },
+  "tabBar": {
+    "list": [{
+        "pagePath": "pages/books/books",
+        "text": "书架",
+        "iconPath": "images/book.png",
+        "selectedIconPath": "images/bookSelected.png"
+    }, {
+        "pagePath": "pages/my/my",
+        "text": "我的",
+        "iconPath": "images/my.png",
+        "selectedIconPath": "images/mySelected.png"
+    }],
+    "color": "#bfbfbf",
+    "selectedColor": "#1AAD19"
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}
