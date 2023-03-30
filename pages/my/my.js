@@ -1,5 +1,6 @@
 // pages/my/my.js
 const app = getApp();
+const AV = app.globalData.AV;
 
 Page({
   data: {

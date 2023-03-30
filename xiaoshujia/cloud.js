@@ -104,6 +104,25 @@ AV.Cloud.define('loginAndGetUserInfo', async request => {
     openid,
     userInfo: user.toJSON(),
   };
-})
+});
 
+//判断书籍是否已购
+
+AV.Cloud.define('checkBookIsBought', async (request) => {
+  const { uid, bkid } = request.params;
+  console.log('Query conditions: uid =', uid, 'bkid =', bkid);
+
+  const query = new AV.Query('orders');
+  
+  // query.equalTo('uid', uid);
+  query.equalTo('bkid', bkid);
+
+  const result = await query.first();
+  if (result) {
+    return { bookIsBuy: 1 };
+  } else {
+    return { bookIsBuy: 0 };
+  };
+  console.log('result', result,);
+});
 ;

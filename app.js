@@ -135,5 +135,9 @@ App({
         mask: true
     });
   },
+  // 获取用户登录标示 供全局调用
+  getLoginFlag: function () {
+    return wx.getStorageSync('loginFlag');
+  },
 })
 

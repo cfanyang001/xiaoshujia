@@ -28,6 +28,7 @@
       data-author="{{item._serverData.author}}"
       data-price="{{item._serverData.price}}"
       data-cover_url="{{item._serverData.cover_url}}"
+      data-id="{{item._serverData.id}}"
     >
       <text class="book-name">{{item._serverData.name}}</text>
       <text class="book-author">{{item._serverData.author}}</text>

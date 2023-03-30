@@ -2,6 +2,7 @@
 
 const app = getApp();
 // const api = require('../../config/config.js');
+const AV = app.globalData.AV;
 
 Page({
 
@@ -11,7 +12,7 @@ Page({
     data: {
         commentList: [],        // 评论列表
         bookInfo: {},           // 书籍信息
-        bookIsBuy: -1,          // 是否已购买
+        bookIsBuy: -1,          // 是否已购买  如果1就是已购显示打开如果0显示兑换
         commentLoading: true,   // 评论loading态
         downloading: false,     // 是否正在下载
         downloadPercent: 0      // 当前书籍下载百分比
@@ -150,31 +151,46 @@ Page({
             bookid: that.data.bookInfo.id,
             skey: app.getLoginFlag()
         };
+        const bookId = this.data.bookInfo.id;
+        // console.log(bookId);
+        
+        const uid = wx.getStorageSync('clouduserInfo').authData.lc_weapp.openid;
+        console.log('当前缓存uid:');
+        console.log('uid:', uid, 'bookId:', bookId);
 
-        wx.request({
-            url: api.queryBookUrl,
-            method: 'GET',
-            data: requestData,
-            success: function(res) {
-                if (res.data.result === 0) {
-                    that.setData({
-                        commentList: res.data.data.lists || [],
-                        bookIsBuy: res.data.data.is_buy
-                    });
-
-                    setTimeout(function() {
-                        that.setData({
-                            commentLoading: false
-                        });
-                    }, 500);
-                } else {
-                    that.showInfo('返回数据异常');
-                }
-            },
-            fail: function(error) {
-                that.showInfo('请求失败');
-            }
+        AV.Cloud.run('checkBookIsBought', { uid, bkid: parseInt(bookId)  })
+        .then((response) => {
+          that.setData({ bookIsBuy: response.bookIsBuy });
+          console.log('云函数执行完毕',response,that.data.bookIsBuy);
+        })
+        .catch((error) => {
+          console.error('Error calling checkBookIsBought cloud function:', error);
         });
+        // console.log(this.bookIsBuy);
+        // wx.request({
+        //     url: api.queryBookUrl,
+        //     method: 'GET',
+        //     data: requestData,
+        //     success: function(res) {
+        //         if (res.data.result === 0) {
+        //             that.setData({
+        //                 commentList: res.data.data.lists || [],
+        //                 bookIsBuy: res.data.data.is_buy
+        //             });
+
+        //             setTimeout(function() {
+        //                 that.setData({
+        //                     commentLoading: false
+        //                 });
+        //             }, 500);
+        //         } else {
+        //             that.showInfo('返回数据异常');
+        //         }
+        //     },
+        //     fail: function(error) {
+        //         that.showInfo('请求失败');
+        //     }
+        // });
     },
 
 
@@ -203,7 +219,7 @@ Page({
             bookInfo: _bookInfo
         });
 
-        // that.getPageData();
+        that.getPageData();
 
 
     },
