@@ -109,9 +109,24 @@ Page({
 
   },
 
-  goToDetail: function (event) {
-    const bookId = event.currentTarget.dataset.id;
-    wx.navigateTo({ url: `/pages/detail/detail?id=${bookId}` });
+      /**
+     * 打开书籍详情页面
+     */
+  goDetail: function(ev) {
+
+    let info = ev.currentTarget.dataset;
+    let navigateUrl = '../detail/detail?';
+
+    for (let key in info) {
+        info[key] = encodeURIComponent(info[key]);
+        navigateUrl += key + '=' + info[key] + '&';
+    }
+
+    navigateUrl = navigateUrl.substring(0, navigateUrl.length - 1);
+    console.log(navigateUrl);
+    wx.navigateTo({
+        url: navigateUrl
+    });
   },
   onShareAppMessage: function(res) {
     if (res.from === 'button') {

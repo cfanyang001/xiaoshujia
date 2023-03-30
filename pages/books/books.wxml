@@ -21,7 +21,14 @@
     <!-- <image class="book-cover" src="{{item.get('cover_url')}}" mode="aspectFill" /> -->
     <image class="book-cover" src="{{item._serverData.cover_url}}" mode="aspectFill" />
     <!-- <text>{{item.attributes.cover_url}}</text> -->
-    <view class="book-info">
+    <view 
+      class="book-info" 
+      catchtap="goDetail" 
+      data-name="{{item._serverData.name}}"
+      data-author="{{item._serverData.author}}"
+      data-price="{{item._serverData.price}}"
+      data-cover_url="{{item._serverData.cover_url}}"
+    >
       <text class="book-name">{{item._serverData.name}}</text>
       <text class="book-author">{{item._serverData.author}}</text>
       <text class="book-price">{{item._serverData.price}}</text>

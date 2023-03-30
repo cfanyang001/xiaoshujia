@@ -3,6 +3,7 @@
     "pages/books/books",
     "pages/my/my",
     "pages/mybooks/mybooks",
+    "pages/detail/detail",
     "pages/index/index",
     "pages/logs/logs"
   ],
